@@ -27,9 +27,9 @@ export const handleLogin: RequestHandler = async (req, res) => {
   try {
     const { username, password } = req.body as AuthRequest;
 
-    // Hardcoded secure credentials
-    const validUsername = "uploader81";
-    const validPassword = "uploader123";
+    // Get credentials from environment variables
+    const validUsername = process.env.ADMIN_USERNAME;
+    const validPassword = process.env.ADMIN_PASSWORD;
 
     if (!username || !password) {
       res.status(400).json({ error: "Username and password required" });
