@@ -119,8 +119,8 @@ export default function Header() {
             />
 
             {/* Sidebar */}
-            <div className="fixed left-0 top-16 bottom-0 w-64 bg-card border-r border-border md:hidden z-50 animate-slideInLeft shadow-lg">
-              <nav className="p-4 space-y-3 overflow-y-auto">
+            <div className="fixed left-0 top-16 bottom-0 w-64 bg-card border-r border-border md:hidden z-50 animate-slideInLeft shadow-lg flex flex-col">
+              <nav className="p-4 space-y-3 overflow-y-auto flex-1">
                 <Link
                   to="/"
                   onClick={closeSidebar}
@@ -136,14 +136,36 @@ export default function Header() {
                 >
                   🔍 Dox Anyone
                 </Link>
-                <Link
-                  to="/admin-panel"
-                  onClick={closeSidebar}
-                  className="flex items-center gap-3 w-full px-4 py-3 text-foreground font-semibold hover:bg-muted rounded-lg transition-colors"
-                >
-                  ⚙️ Admin Panel
-                </Link>
+                {isAuthenticated && (
+                  <>
+                    <Link
+                      to="/uppostpanel"
+                      onClick={closeSidebar}
+                      className="flex items-center gap-3 w-full px-4 py-3 text-foreground font-semibold hover:bg-muted rounded-lg transition-colors"
+                    >
+                      📤 Upload
+                    </Link>
+                    <Link
+                      to="/admin-panel"
+                      onClick={closeSidebar}
+                      className="flex items-center gap-3 w-full px-4 py-3 text-amber-500 font-semibold hover:bg-amber-500/10 rounded-lg transition-colors bg-amber-500/5"
+                    >
+                      ⚙️ Admin Panel
+                    </Link>
+                  </>
+                )}
               </nav>
+              {isAuthenticated && (
+                <div className="p-4 border-t border-border">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-destructive/10 text-destructive font-semibold rounded-lg hover:bg-destructive hover:text-destructive-foreground transition-all"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           </>
         )}
