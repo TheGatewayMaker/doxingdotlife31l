@@ -51,6 +51,18 @@ export function createServer() {
     res.json({ received: req.body });
   });
 
+  app.get("/api/test-env", (_req, res) => {
+    const envVars = {
+      hasADMIN_USERNAME: !!process.env.ADMIN_USERNAME,
+      hasADMIN_PASSWORD: !!process.env.ADMIN_PASSWORD,
+      hasR2_ACCOUNT_ID: !!process.env.R2_ACCOUNT_ID,
+      hasR2_BUCKET_NAME: !!process.env.R2_BUCKET_NAME,
+      NODE_ENV: process.env.NODE_ENV,
+    };
+    console.log("Environment variables check:", envVars);
+    res.json(envVars);
+  });
+
   app.get("/api/demo", handleDemo);
 
   // Authentication routes
