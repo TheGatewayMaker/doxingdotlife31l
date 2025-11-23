@@ -135,13 +135,13 @@ export default function DoxAnyone() {
           </div>
 
           {/* Call to Action */}
-          <div className="text-center">
+          <div className="text-center mt-6 sm:mt-8">
             <button
               onClick={handleDoxNow}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent to-accent/80 text-accent-foreground font-bold text-lg rounded-lg hover:shadow-lg hover:shadow-accent/50 transition-all duration-300 transform hover:scale-105"
+              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-accent to-accent/80 text-accent-foreground font-bold text-sm sm:text-base rounded-lg hover:shadow-lg hover:shadow-accent/50 transition-all duration-300 transform hover:scale-105"
             >
               Dox Now
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
