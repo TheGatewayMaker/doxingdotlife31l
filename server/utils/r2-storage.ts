@@ -18,17 +18,15 @@ interface PostMetadata {
 }
 
 const getR2Client = (): S3Client => {
-  const accountId = process.env.R2_ACCOUNT_ID;
   const accessKeyId = process.env.R2_ACCESS_KEY_ID;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
-  const endpoint = process.env.R2_ENDPOINT;
+  const accountId = process.env.R2_ACCOUNT_ID;
 
-  if (!accountId || !accessKeyId || !secretAccessKey || !endpoint) {
+  if (!accessKeyId || !secretAccessKey || !accountId) {
     const missing = [];
-    if (!accountId) missing.push("R2_ACCOUNT_ID");
     if (!accessKeyId) missing.push("R2_ACCESS_KEY_ID");
     if (!secretAccessKey) missing.push("R2_SECRET_ACCESS_KEY");
-    if (!endpoint) missing.push("R2_ENDPOINT");
+    if (!accountId) missing.push("R2_ACCOUNT_ID");
 
     console.error("Missing R2 env variables:", missing);
     console.error(
@@ -37,9 +35,11 @@ const getR2Client = (): S3Client => {
     );
 
     throw new Error(
-      `Missing required R2 environment variables: ${missing.join(", ")}`,
+      `Missing required R2 environment variables: ${missing.join(", ")}. Please set these in your deployment environment.`,
     );
   }
+
+  const endpoint = `https://${accountId}.r2.cloudflarestorage.com`;
 
   return new S3Client({
     region: "auto",
