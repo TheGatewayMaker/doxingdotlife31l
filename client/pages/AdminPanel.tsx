@@ -106,8 +106,7 @@ const COUNTRIES = [
 
 export default function AdminPanel() {
   const navigate = useNavigate();
-  const [authToken, setAuthToken] = useState<string | null>(null);
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const { isAuthenticated, token, isLoading: isAuthLoading } = useAuthContext();
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
@@ -124,14 +123,10 @@ export default function AdminPanel() {
   const [isDeletingPost, setIsDeletingPost] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("auth_token");
-    setAuthToken(token);
-    setIsAuthChecking(false);
-
-    if (!token) {
+    if (!isAuthLoading && !isAuthenticated) {
       navigate("/uppostpanel");
     }
-  }, [navigate]);
+  }, [isAuthenticated, isAuthLoading, navigate]);
 
   const filteredCountries = COUNTRIES.filter((c) =>
     c.toLowerCase().includes(countrySearch.toLowerCase()),
@@ -189,14 +184,14 @@ export default function AdminPanel() {
   };
 
   const confirmDeletePost = async () => {
-    if (!deletingPostId || !authToken) return;
+    if (!deletingPostId || !token) return;
 
     try {
       setIsDeletingPost(true);
       const response = await fetch(`/api/posts/${deletingPostId}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -226,7 +221,7 @@ export default function AdminPanel() {
     toast.success("Post updated successfully");
   };
 
-  if (isAuthChecking) {
+  if (isAuthLoading) {
     return (
       <div className="min-h-screen bg-background text-foreground flex flex-col animate-fadeIn">
         <Header />
@@ -242,7 +237,7 @@ export default function AdminPanel() {
     );
   }
 
-  if (!authToken) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background text-foreground flex flex-col animate-fadeIn">
         <Header />
@@ -416,7 +411,7 @@ export default function AdminPanel() {
                     onDelete={handleDeletePost}
                     onUpdate={handlePostUpdated}
                     animationDelay={idx * 0.05}
-                    authToken={authToken!}
+                    authToken={token!}
                   />
                 ))}
               </div>
