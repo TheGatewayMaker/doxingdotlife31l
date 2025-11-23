@@ -31,6 +31,12 @@ export const handleLogin: RequestHandler = async (req, res) => {
     const validUsername = process.env.ADMIN_USERNAME;
     const validPassword = process.env.ADMIN_PASSWORD;
 
+    if (!validUsername || !validPassword) {
+      console.error("Admin credentials not configured in environment variables");
+      res.status(500).json({ error: "Server configuration error" });
+      return;
+    }
+
     if (!username || !password) {
       res.status(400).json({ error: "Username and password required" });
       return;
