@@ -177,10 +177,11 @@ export default function SimpleMediaGallery({
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         crossOrigin="anonymous"
                         preload="metadata"
+                        playsInline
                       >
                         <source src={file.url} type={file.type} />
                       </video>
-                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center pointer-events-none">
                         <div className="text-3xl drop-shadow-lg">▶️</div>
                       </div>
                     </div>
