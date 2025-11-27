@@ -228,6 +228,7 @@ export default function PostDetail() {
                 <SimpleMediaGallery
                   mediaFiles={post.mediaFiles}
                   postTitle={post.title}
+                  thumbnailUrl={post.thumbnail}
                 />
               )}
 
