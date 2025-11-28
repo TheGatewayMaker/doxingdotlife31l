@@ -13,6 +13,7 @@ interface PostMetadata {
   country: string;
   city: string;
   server: string;
+  nsfw?: boolean;
   mediaFiles: string[];
   createdAt: string;
 }

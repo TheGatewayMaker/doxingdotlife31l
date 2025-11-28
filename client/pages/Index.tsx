@@ -340,11 +340,11 @@ export default function Index() {
   const [hasSearchFilters, setHasSearchFilters] = useState(false);
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
 
-  const availableCities = selectedCountry
-    ? (CITIES_BY_COUNTRY[selectedCountry] || []).filter((city) =>
-        city.toLowerCase().includes(citySearch.toLowerCase()),
-      )
-    : [];
+  const allCities = Object.values(CITIES_BY_COUNTRY).flat();
+  const uniqueCities = Array.from(new Set(allCities)).sort();
+  const availableCities = uniqueCities.filter((city) =>
+    city.toLowerCase().includes(citySearch.toLowerCase()),
+  );
 
   const filteredCountries = COUNTRIES.filter((country) =>
     country.toLowerCase().includes(countrySearch.toLowerCase()),
@@ -480,7 +480,7 @@ export default function Index() {
               {showSearchSuggestions &&
                 searchQuery &&
                 searchSuggestions.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-[200] max-h-64 overflow-y-auto shadow-xl shadow-blue-500/20">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-[1000] max-h-64 overflow-y-auto shadow-xl shadow-blue-500/20">
                     {searchSuggestions.map((post) => (
                       <button
                         key={post.id}
@@ -528,17 +528,31 @@ export default function Index() {
                     <GlobeIcon className="w-4 h-4 text-blue-400" />
                     By Country
                   </label>
-                  <input
-                    type="text"
-                    placeholder={
-                      selectedCountry ? selectedCountry : "Select country..."
-                    }
-                    value={countrySearch}
-                    onChange={(e) => setCountrySearch(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder={
+                        selectedCountry ? selectedCountry : "Select country..."
+                      }
+                      value={countrySearch}
+                      onChange={(e) => setCountrySearch(e.target.value)}
+                      className="w-full px-4 py-3 pr-10 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
+                    />
+                    {selectedCountry && (
+                      <button
+                        onClick={() => {
+                          setSelectedCountry("");
+                          setCountrySearch("");
+                        }}
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-accent hover:text-accent/80 transition-colors hover:scale-110"
+                        title="Clear selection"
+                      >
+                        <CloseIcon className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
                   {countrySearch && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-40 max-h-48 overflow-y-auto shadow-lg">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-lg">
                       {filteredCountries.length > 0 ? (
                         filteredCountries.map((country) => (
                           <button
@@ -546,7 +560,6 @@ export default function Index() {
                             onClick={() => {
                               setSelectedCountry(country);
                               setCountrySearch("");
-                              setSelectedCity("");
                             }}
                             className="w-full text-left px-4 py-2 hover:bg-blue-600/30 hover:border-l-2 hover:border-l-blue-500 text-white text-sm transition-all duration-200"
                           >
@@ -560,19 +573,6 @@ export default function Index() {
                       )}
                     </div>
                   )}
-                  {selectedCountry && (
-                    <button
-                      onClick={() => {
-                        setSelectedCountry("");
-                        setSelectedCity("");
-                        setCountrySearch("");
-                      }}
-                      className="absolute top-3 right-3 text-accent hover:text-accent/80 transition-colors"
-                      title="Clear selection"
-                    >
-                      <CloseIcon className="w-4 h-4" />
-                    </button>
-                  )}
                 </div>
 
                 {/* City Dropdown */}
@@ -581,15 +581,31 @@ export default function Index() {
                     <MapPinIcon className="w-4 h-4 text-blue-400" />
                     By City
                   </label>
-                  <input
-                    type="text"
-                    placeholder={selectedCity ? selectedCity : "Select city..."}
-                    value={citySearch}
-                    onChange={(e) => setCitySearch(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder={
+                        selectedCity ? selectedCity : "Select city..."
+                      }
+                      value={citySearch}
+                      onChange={(e) => setCitySearch(e.target.value)}
+                      className="w-full px-4 py-3 pr-10 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
+                    />
+                    {selectedCity && (
+                      <button
+                        onClick={() => {
+                          setSelectedCity("");
+                          setCitySearch("");
+                        }}
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-accent hover:text-accent/80 transition-colors hover:scale-110"
+                        title="Clear selection"
+                      >
+                        <CloseIcon className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
                   {citySearch && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-40 max-h-48 overflow-y-auto shadow-lg">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-lg">
                       {availableCities.length > 0 ? (
                         availableCities.map((city) => (
                           <button
@@ -610,18 +626,6 @@ export default function Index() {
                       )}
                     </div>
                   )}
-                  {selectedCity && (
-                    <button
-                      onClick={() => {
-                        setSelectedCity("");
-                        setCitySearch("");
-                      }}
-                      className="absolute top-3 right-3 text-accent hover:text-accent/80 transition-colors"
-                      title="Clear selection"
-                    >
-                      <CloseIcon className="w-4 h-4" />
-                    </button>
-                  )}
                 </div>
 
                 {/* Server Dropdown */}
@@ -630,17 +634,31 @@ export default function Index() {
                     <ServerIcon className="w-4 h-4 text-blue-400" />
                     By Server
                   </label>
-                  <input
-                    type="text"
-                    placeholder={
-                      selectedServer ? selectedServer : "Select server..."
-                    }
-                    value={serverSearch}
-                    onChange={(e) => setServerSearch(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder={
+                        selectedServer ? selectedServer : "Select server..."
+                      }
+                      value={serverSearch}
+                      onChange={(e) => setServerSearch(e.target.value)}
+                      className="w-full px-4 py-3 pr-10 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
+                    />
+                    {selectedServer && (
+                      <button
+                        onClick={() => {
+                          setSelectedServer("");
+                          setServerSearch("");
+                        }}
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-accent hover:text-accent/80 transition-colors hover:scale-110"
+                        title="Clear selection"
+                      >
+                        <CloseIcon className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
                   {serverSearch && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-40 max-h-48 overflow-y-auto shadow-lg">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-lg">
                       {filteredServers.length > 0 ? (
                         filteredServers.map((server) => (
                           <button
@@ -660,18 +678,6 @@ export default function Index() {
                         </div>
                       )}
                     </div>
-                  )}
-                  {selectedServer && (
-                    <button
-                      onClick={() => {
-                        setSelectedServer("");
-                        setServerSearch("");
-                      }}
-                      className="absolute top-3 right-3 text-accent hover:text-accent/80 transition-colors"
-                      title="Clear selection"
-                    >
-                      <CloseIcon className="w-4 h-4" />
-                    </button>
                   )}
                 </div>
               </div>

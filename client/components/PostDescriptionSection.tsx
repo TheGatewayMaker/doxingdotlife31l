@@ -32,34 +32,6 @@ export default function PostDescriptionSection({
 
   return (
     <div className="space-y-6">
-      {/* Description Section */}
-      <div className="bg-card border border-border rounded-lg p-6">
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <h2 className="text-xl font-bold text-foreground">Description</h2>
-          <button
-            onClick={handleCopyDescription}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted hover:bg-accent hover:text-accent-foreground text-muted-foreground transition-all text-sm font-medium active:scale-95"
-            title="Copy description to clipboard"
-          >
-            {copied ? (
-              <>
-                <Check className="w-4 h-4" />
-                <span className="hidden sm:inline">Copied!</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-4 h-4" />
-                <span className="hidden sm:inline">Copy</span>
-              </>
-            )}
-          </button>
-        </div>
-
-        <div className="text-base leading-relaxed text-foreground whitespace-pre-wrap">
-          {description}
-        </div>
-      </div>
-
       {/* Tags/Metadata Section - Only show if we have tags */}
       {(tags.country || tags.city || tags.server) && (
         <div className="bg-card border border-border rounded-lg p-6">
@@ -88,6 +60,34 @@ export default function PostDescriptionSection({
           </div>
         </div>
       )}
+
+      {/* Description Section */}
+      <div className="bg-card border border-border rounded-lg p-6">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <h2 className="text-xl font-bold text-foreground">Description</h2>
+          <button
+            onClick={handleCopyDescription}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted hover:bg-accent hover:text-accent-foreground text-muted-foreground transition-all text-sm font-medium active:scale-95"
+            title="Copy description to clipboard"
+          >
+            {copied ? (
+              <>
+                <Check className="w-4 h-4" />
+                <span className="hidden sm:inline">Copied!</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-4 h-4" />
+                <span className="hidden sm:inline">Copy</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        <div className="text-base leading-relaxed text-foreground whitespace-pre-wrap">
+          {description}
+        </div>
+      </div>
     </div>
   );
 }
