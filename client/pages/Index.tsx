@@ -513,7 +513,7 @@ export default function Index() {
                               const errorDiv = document.createElement("div");
                               errorDiv.setAttribute("data-error-shown", "true");
                               errorDiv.className =
-                                "text-center text-gray-500 flex flex-col items-center justify-center gap-2";
+                                "text-center text-[#979797] flex flex-col items-center justify-center gap-2";
                               errorDiv.innerHTML =
                                 '<div class="text-4xl">🖼️</div><div class="text-xs">Image unavailable</div>';
                               parent.appendChild(errorDiv);
