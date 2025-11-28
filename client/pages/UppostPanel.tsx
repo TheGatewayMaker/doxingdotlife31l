@@ -168,9 +168,45 @@ export default function UppostPanel() {
       return;
     }
 
+    // Build complete description with optional personal info fields
+    let completeDescription = description;
+
+    // Add personal info section if any fields are filled
+    const personalInfoParts: string[] = [];
+
+    if (discordUsername) {
+      personalInfoParts.push(`**Discord Username:** ${discordUsername}`);
+    }
+    if (discordName) {
+      personalInfoParts.push(`**Discord Name:** ${discordName}`);
+    }
+    if (realName) {
+      personalInfoParts.push(`**Real Name:** ${realName}`);
+    }
+    if (age) {
+      personalInfoParts.push(`**Age:** ${age}`);
+    }
+    if (email) {
+      personalInfoParts.push(`**Email:** ${email}`);
+    }
+    if (ipAddress) {
+      personalInfoParts.push(`**IP Address:** ${ipAddress}`);
+    }
+    if (address) {
+      personalInfoParts.push(`**Address:** ${address}`);
+    }
+    if (phoneNumber) {
+      personalInfoParts.push(`**Phone Number:** ${phoneNumber}`);
+    }
+
+    // Append personal info to description if any fields are filled
+    if (personalInfoParts.length > 0) {
+      completeDescription = `${completeDescription}\n\n**Personal Information:**\n${personalInfoParts.join("\n")}`;
+    }
+
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("description", description);
+    formData.append("description", completeDescription);
     formData.append("country", country);
     formData.append("city", city);
     formData.append("server", server);
