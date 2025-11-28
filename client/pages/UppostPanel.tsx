@@ -20,6 +20,8 @@ export default function UppostPanel() {
   const [city, setCity] = useState("");
   const [server, setServer] = useState("");
   const [nsfw, setNsfw] = useState(false);
+  const [isTrend, setIsTrend] = useState(false);
+  const [trendRank, setTrendRank] = useState("");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [thumbnailPreview, setThumbnailPreview] = useState<string>("");
   const [mediaFiles, setMediaFiles] = useState<File[]>([]);
