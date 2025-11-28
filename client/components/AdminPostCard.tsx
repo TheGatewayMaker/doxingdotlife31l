@@ -6,6 +6,7 @@ import {
   ServerIcon,
   TrashIcon,
   EditIcon,
+  ImageIcon,
 } from "./Icons";
 import EditPostModal from "./EditPostModal";
 import MediaManagerModal from "./MediaManagerModal";
