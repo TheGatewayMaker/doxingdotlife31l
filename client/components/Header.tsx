@@ -59,10 +59,10 @@ export default function Header() {
           </Link>
           <Link
             to="/dox-anyone"
-            className="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30"
           >
             <SearchAltIcon className="w-4 h-4" />
-            <span>Search</span>
+            <span>Dox Now</span>
           </Link>
           {isAuthenticated && (
             <>
