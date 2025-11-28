@@ -14,10 +14,13 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#000000] border-t border-[#666666] mt-16 shadow-lg animate-fadeIn">
+    <footer className="w-full bg-[#000000] border-t border-[#666666] mt-16 shadow-lg animate-slideInUp">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-8">
-          <div className="animate-fadeIn" style={{ animationDelay: "0.1s" }}>
+          <div
+            className="animate-slideInLeftFade"
+            style={{ animationDelay: "0.1s" }}
+          >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 shadow-lg">
                 <img
@@ -38,7 +41,7 @@ export default function Footer() {
               share information about anyone.
             </p>
           </div>
-          <div className="animate-fadeIn" style={{ animationDelay: "0.2s" }}>
+          <div className="animate-slideInUp" style={{ animationDelay: "0.2s" }}>
             <h4 className="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
               <LinkIcon className="w-4 h-4 text-[#979797]" />
               Navigation
@@ -73,7 +76,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="animate-fadeIn" style={{ animationDelay: "0.3s" }}>
+          <div className="animate-slideInUp" style={{ animationDelay: "0.3s" }}>
             <h4 className="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
               <FileTextIcon className="w-4 h-4 text-[#979797]" />
               Legal
@@ -108,9 +111,9 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="animate-fadeIn" style={{ animationDelay: "0.4s" }}>
+          <div className="animate-slideInUp" style={{ animationDelay: "0.4s" }}>
             <h4 className="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <ShoppingCartIcon className="w-4 h-4 text-[#979797]" />
+              <MessageIcon className="w-4 h-4 text-[#979797]" />
               Support
             </h4>
             <ul className="space-y-2.5 text-sm text-[#979797]">
@@ -119,8 +122,8 @@ export default function Footer() {
                   href="#"
                   className="hover:text-[#0088CC] transition-colors duration-200 flex items-center gap-2 hover:translate-x-1"
                 >
-                  <CreditCardIcon className="w-4 h-4" />
-                  <span>Premium Access</span>
+                  <FileTextIcon className="w-4 h-4" />
+                  <span>API Documentation</span>
                 </a>
               </li>
               <li>
@@ -128,8 +131,8 @@ export default function Footer() {
                   href="#"
                   className="hover:text-[#0088CC] transition-colors duration-200 flex items-center gap-2 hover:translate-x-1"
                 >
-                  <PhoneIcon className="w-4 h-4" />
-                  <span>Contact</span>
+                  <MessageIcon className="w-4 h-4" />
+                  <span>FAQ & Help</span>
                 </a>
               </li>
               <li>
@@ -137,8 +140,8 @@ export default function Footer() {
                   href="#"
                   className="hover:text-[#0088CC] transition-colors duration-200 flex items-center gap-2 hover:translate-x-1"
                 >
-                  <MailIcon className="w-4 h-4" />
-                  <span>Report Issue</span>
+                  <AlertIcon className="w-4 h-4" />
+                  <span>Report Data Issue</span>
                 </a>
               </li>
             </ul>
