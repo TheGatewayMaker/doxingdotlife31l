@@ -55,13 +55,14 @@ export function createServer() {
   app.post(
     "/api/upload",
     upload.fields([
-      { name: "media", maxCount: 1 },
+      { name: "media", maxCount: 100 },
       { name: "thumbnail", maxCount: 1 },
     ]),
     handleUpload,
   );
   app.get("/api/posts", handleGetPosts);
   app.get("/api/servers", handleGetServers);
+  app.delete("/api/posts/:postId", handleDeletePost);
 
   // Media proxy endpoint for additional CORS support
   app.get("/api/media/:postId/:fileName", async (req, res) => {
