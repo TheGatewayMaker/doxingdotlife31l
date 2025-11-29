@@ -48,6 +48,8 @@ const detectImageMimeType = (
 };
 
 export const handleUpload: RequestHandler = async (req, res, next) => {
+  let responseSent = false;
+
   try {
     // Ensure we have files from multer
     if (!req.files || typeof req.files !== "object") {
@@ -56,6 +58,7 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
         filesKeys: req.files ? Object.keys(req.files) : [],
       });
       res.status(400).json({ error: "Files object is missing or invalid" });
+      responseSent = true;
       return;
     }
 
@@ -75,6 +78,7 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
         thumbnail: !!files?.thumbnail,
       });
       res.status(400).json({ error: "Missing required fields" });
+      responseSent = true;
       return;
     }
 
