@@ -500,8 +500,15 @@ export const deleteMediaFile = async (
   );
 
   const metadata = await getPostMetadata(postId);
-  if (metadata && metadata.mediaFiles) {
-    const updatedMediaFiles = metadata.mediaFiles.filter((f) => f !== fileName);
+  if (metadata) {
+    // Ensure mediaFiles is an array before filtering
+    let mediaFiles = metadata.mediaFiles || [];
+    if (!Array.isArray(mediaFiles)) {
+      console.warn(`mediaFiles for post ${postId} is not an array, treating as empty`);
+      mediaFiles = [];
+    }
+
+    const updatedMediaFiles = mediaFiles.filter((f) => f !== fileName);
     const updatedMetadata: PostMetadata = {
       ...metadata,
       mediaFiles: updatedMediaFiles,
