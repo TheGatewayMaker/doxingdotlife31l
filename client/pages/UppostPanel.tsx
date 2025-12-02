@@ -32,6 +32,7 @@ export default function UppostPanel() {
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
   const [uploadError, setUploadError] = useState("");
+  const uploadAbortControllerRef = useRef<AbortController | null>(null);
 
   // Personal Info Fields (Optional)
   const [discordUsername, setDiscordUsername] = useState("");
