@@ -29,6 +29,25 @@ const upload = multer({
 export function createServer() {
   const app = express();
 
+  // Security headers middleware - MUST be before CORS to prevent browser blocking
+  app.use((req, res, next) => {
+    // Critical headers to allow large uploads without browser blocking
+    // COOP: Isolates browsing context, prevents clickjacking
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+    // COEP: Enables cross-origin isolation for SharedArrayBuffer
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    // CSP: Prevent inline scripts and restrict resource loading
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;",
+    );
+    // Additional security headers
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("X-Frame-Options", "SAMEORIGIN");
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+    next();
+  });
+
   // Middleware - order matters, apply parsers first
   app.use(
     cors({
