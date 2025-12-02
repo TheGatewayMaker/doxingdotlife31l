@@ -15,12 +15,15 @@ import {
 import { handleLogout, handleCheckAuth, authMiddleware } from "./routes/auth";
 import { validateR2Configuration } from "./utils/r2-storage";
 
-// VPS configuration - no size restrictions since you control the server
+// VPS configuration with proper size handling
 // Files are uploaded to server memory, then to R2
+// 500MB total limit for all files combined (adjust if needed)
 const upload = multer({
   storage: multer.memoryStorage(),
-  // No limits - VPS can handle large files
-  // Remove limits to avoid 413 Content Too Large errors
+  limits: {
+    fileSize: 500 * 1024 * 1024, // 500MB per file
+    files: 100, // Allow up to 100 files
+  },
 });
 
 export function createServer() {
