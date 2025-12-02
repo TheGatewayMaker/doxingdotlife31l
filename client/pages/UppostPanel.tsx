@@ -235,6 +235,37 @@ export default function UppostPanel() {
         `[Upload] Sending request with ${mediaFiles.length} media files and 1 thumbnail`,
       );
 
+      // Create abort controller for request timeout handling
+      uploadAbortControllerRef.current = new AbortController();
+      const uploadTimeout = setTimeout(() => {
+        uploadAbortControllerRef.current?.abort();
+        console.error("[Upload] Request timeout - aborting upload");
+      }, 35 * 60 * 1000); // 35 minutes (slightly more than server's 30 min timeout)
+
+      try {
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+            // Note: Content-Type is NOT set for FormData - browser will set it with correct boundary
+          },
+          body: formData,
+          signal: uploadAbortControllerRef.current.signal,
+        });
+
+        clearTimeout(uploadTimeout);
+      } catch (fetchError) {
+        clearTimeout(uploadTimeout);
+        if (
+          fetchError instanceof Error &&
+          fetchError.name === "AbortError"
+        ) {
+          throw new Error(
+            "Upload timed out after 35 minutes. Please try again with smaller files.",
+          );
+        }
+        throw fetchError;
+      }
       const uploadResponse = await fetch("/api/upload", {
         method: "POST",
         headers: {
@@ -242,6 +273,7 @@ export default function UppostPanel() {
           // Note: Content-Type is NOT set for FormData - browser will set it with correct boundary
         },
         body: formData,
+        signal: uploadAbortControllerRef.current.signal,
       });
 
       console.log(
