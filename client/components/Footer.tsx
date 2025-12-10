@@ -16,37 +16,38 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#000000] border-t border-[#666666] mt-12 sm:mt-16 lg:mt-20 shadow-lg animate-slideInUp">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-6 sm:mb-8">
           <div
             className="animate-slideInLeftFade"
             style={{ animationDelay: "0.1s" }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 shadow-lg">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden flex-shrink-0 shadow-lg">
                 <img
                   src="https://i.ibb.co/PzNWvp7N/doxinglifelogo.png"
                   alt="Doxing Dot Life Logo"
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
-              <div>
-                <h3 className="font-black text-white text-lg">
+              <div className="min-w-0">
+                <h3 className="font-black text-white text-base sm:text-lg line-clamp-1">
                   Doxing Dot Life
                 </h3>
                 <p className="text-xs text-gray-500">Doxing Database</p>
               </div>
             </div>
-            <p className="text-sm text-[#979797] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#979797] leading-relaxed">
               The largest database of exposed and doxed individuals. Find and
               share information about anyone.
             </p>
           </div>
           <div className="animate-slideInUp" style={{ animationDelay: "0.2s" }}>
-            <h4 className="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <LinkIcon className="w-4 h-4 text-[#979797]" />
-              Navigation
+            <h4 className="font-bold text-white mb-3 sm:mb-4 flex items-center gap-2 text-xs sm:text-sm uppercase tracking-wider">
+              <LinkIcon className="w-4 h-4 text-[#979797] flex-shrink-0" />
+              <span>Navigation</span>
             </h4>
-            <ul className="space-y-2.5 text-sm text-[#979797]">
+            <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-[#979797]">
               <li>
                 <a
                   href="/"
