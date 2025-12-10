@@ -141,7 +141,7 @@ export default function DoxAnyone() {
           </div>
 
           {/* Call to Action */}
-          <div className="text-center mt-4 sm:mt-6">
+          <div className="text-center mt-4 sm:mt-6 animate-popIn" style={{ animationDelay: "0.4s" }}>
             <button
               onClick={handleDoxNow}
               className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#0088CC] text-white font-bold text-sm rounded-lg hover:bg-[#0077BB] shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 transition-all duration-300 transform hover:scale-105 active:scale-95"
