@@ -190,16 +190,10 @@ export default function AdminPanel() {
 
     try {
       setIsDeletingPost(true);
-      const idToken = await getIdToken();
-      if (!idToken) {
-        throw new Error("Authentication token not available");
-      }
 
       const response = await fetch(`/api/posts/${deletingPostId}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
+        credentials: "include", // Send session cookie
       });
 
       if (!response.ok) {
