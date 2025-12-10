@@ -53,7 +53,7 @@ const AUTHORIZED_EMAILS = import.meta.env.VITE_AUTHORIZED_EMAILS
   : [];
 
 /**
- * Sign in with Google
+ * Sign in with Google and create server session
  * Returns user data if successful, throws error if email is not authorized
  */
 export const signInWithGoogle = async (): Promise<User> => {
@@ -81,9 +81,40 @@ export const signInWithGoogle = async (): Promise<User> => {
       throw new Error("Unable to retrieve email from Google account.");
     }
 
+    // Create server session with the ID token
+    const idToken = await user.getIdToken();
+    await createServerSession(idToken);
+
     return user;
   } catch (error) {
     console.error("Google sign-in error:", error);
+    throw error;
+  }
+};
+
+/**
+ * Create a server session by sending the Firebase ID token to backend
+ * Backend will set httpOnly cookie with session ID
+ */
+export const createServerSession = async (idToken: string): Promise<void> => {
+  try {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // Important: Include cookies in request
+      body: JSON.stringify({ idToken }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.error || "Failed to create session");
+    }
+
+    console.log("✅ Server session created successfully");
+  } catch (error) {
+    console.error("Failed to create server session:", error);
     throw error;
   }
 };
