@@ -680,113 +680,113 @@ export default function UppostPanel() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {/* Discord Username */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInLeft" style={{ animationDelay: "0.43s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     Discord Username
                   </label>
                   <input
                     type="text"
                     value={discordUsername}
                     onChange={(e) => setDiscordUsername(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., user#1234"
                   />
                 </div>
 
                 {/* Discord Name */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInRight" style={{ animationDelay: "0.43s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     Discord Name
                   </label>
                   <input
                     type="text"
                     value={discordName}
                     onChange={(e) => setDiscordName(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., Display Name"
                   />
                 </div>
 
                 {/* Real Name */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInLeft" style={{ animationDelay: "0.45s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     Real Name
                   </label>
                   <input
                     type="text"
                     value={realName}
                     onChange={(e) => setRealName(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., John Doe"
                   />
                 </div>
 
                 {/* Age */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInRight" style={{ animationDelay: "0.45s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     Age
                   </label>
                   <input
                     type="text"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., 25"
                   />
                 </div>
 
                 {/* Email */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInLeft" style={{ animationDelay: "0.47s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     Email
                   </label>
                   <input
                     type="email"
                     value={personalEmail}
                     onChange={(e) => setPersonalEmail(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., user@example.com"
                   />
                 </div>
 
                 {/* IP Address */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInRight" style={{ animationDelay: "0.47s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     IP Address
                   </label>
                   <input
                     type="text"
                     value={ipAddress}
                     onChange={(e) => setIpAddress(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., 192.168.1.1"
                   />
                 </div>
 
                 {/* Address */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInLeft" style={{ animationDelay: "0.49s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     Address
                   </label>
                   <input
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., 123 Main St, City, State"
                   />
                 </div>
 
                 {/* Phone Number */}
-                <div>
-                  <label className="block text-sm font-bold mb-3 text-foreground">
+                <div className="animate-slideInRight" style={{ animationDelay: "0.49s" }}>
+                  <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                     Phone Number
                   </label>
                   <input
                     type="text"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., +1-555-0123"
                   />
                 </div>
