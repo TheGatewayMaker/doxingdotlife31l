@@ -466,22 +466,22 @@ export default function Index() {
           <div className="mb-8 sm:mb-10 md:mb-12 animate-slideInUp">
             {isLoadingPosts ? (
               <>
-                <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-3 flex items-center gap-3 text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3 text-white">
                   <span className="inline-block animate-spin">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 border-3 border-[#666666] border-t-[#0088CC] rounded-full"></div>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 border-3 border-[#666666] border-t-[#0088CC] rounded-full"></div>
                   </span>
                   <span>Loading Posts</span>
                 </h2>
-                <p className="text-[#979797] text-sm sm:text-base">
+                <p className="text-[#979797] text-xs sm:text-sm md:text-base">
                   Fetching the latest posts for you...
                 </p>
               </>
             ) : filteredPosts.length === 0 ? (
               <>
-                <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-3 text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 sm:mb-3 text-white">
                   No Posts Found
                 </h2>
-                <p className="text-[#979797] text-sm sm:text-base">
+                <p className="text-[#979797] text-xs sm:text-sm md:text-base">
                   {hasSearchFilters
                     ? "Try adjusting your search filters"
                     : "No posts available at the moment"}
@@ -489,13 +489,13 @@ export default function Index() {
               </>
             ) : (
               <>
-                <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                  <Flame className="w-7 h-7 sm:w-8 sm:h-8 text-orange-500" />
-                  <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white">
+                <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 mb-1.5 sm:mb-2 md:mb-3">
+                  <Flame className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-orange-500" />
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white">
                     Trending
                   </h2>
                 </div>
-                <p className="text-[#979797] text-sm sm:text-base">
+                <p className="text-[#979797] text-xs sm:text-sm md:text-base">
                   Showing {displayedPosts.length} of {filteredPosts.length}{" "}
                   result{filteredPosts.length !== 1 ? "s" : ""}
                 </p>
