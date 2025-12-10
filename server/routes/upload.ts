@@ -10,6 +10,7 @@ import {
 interface UploadRequest {
   title: string;
   description: string;
+  userEmail: string;
   country?: string;
   city?: string;
   server?: string;
