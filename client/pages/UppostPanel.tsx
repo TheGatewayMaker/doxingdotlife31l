@@ -445,25 +445,25 @@ export default function UppostPanel() {
       <Header />
       <main className="flex-1 w-full">
         {/* Hero Section */}
-        <div className="bg-background pt-8 pb-8 md:pt-16 md:pb-12 border-b border-border/50">
+        <div className="bg-background pt-6 pb-6 md:pt-12 md:pb-10 border-b border-border/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-0">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-0">
               <div
-                className="animate-fadeIn"
+                className="animate-fadeIn flex-1 min-w-0"
                 style={{ animationDelay: "0.1s" }}
               >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 text-foreground tracking-tighter leading-tight flex items-center gap-2">
-                  <UploadIcon className="w-8 h-8 text-accent" />
-                  Upload Panel
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-2 text-foreground tracking-tighter leading-tight flex items-center gap-2 flex-wrap">
+                  <UploadIcon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-accent flex-shrink-0" />
+                  <span>Upload Panel</span>
                 </h1>
-                <p className="text-base sm:text-lg md:text-xl font-semibold text-muted-foreground mb-4">
+                <p className="text-xs sm:text-sm md:text-base font-semibold text-muted-foreground mb-3 break-all">
                   Logged in as:{" "}
                   <span className="text-accent font-bold">{email}</span>
                 </p>
-                <div className="flex flex-wrap gap-3 items-center">
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-600/20 text-green-400 font-semibold text-sm rounded-full border border-green-600/30">
+                <div className="flex flex-wrap gap-2 items-center">
+                  <span className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-600/20 text-green-400 font-semibold text-xs rounded-full border border-green-600/30">
                     <svg
-                      className="w-4 h-4"
+                      className="w-3 h-3 flex-shrink-0"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -475,9 +475,9 @@ export default function UppostPanel() {
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-6 py-3 bg-destructive/90 hover:bg-destructive text-destructive-foreground font-bold rounded-lg transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-destructive/90 hover:bg-destructive text-destructive-foreground font-bold text-sm sm:text-base rounded-lg transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap w-full sm:w-auto"
               >
-                <LogOut className="w-5 h-5" />
+                <LogOut className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                 Logout
               </button>
             </div>
