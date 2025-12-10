@@ -540,9 +540,9 @@ export default function UppostPanel() {
                   className="cursor-pointer block"
                 >
                   {thumbnail ? (
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                       <svg
-                        className="w-6 h-6 mx-auto text-accent"
+                        className="w-5 h-5 sm:w-6 sm:h-6 mx-auto text-accent"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -550,7 +550,7 @@ export default function UppostPanel() {
                       >
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
-                      <p className="text-sm font-bold text-accent">
+                      <p className="text-xs sm:text-sm font-bold text-accent break-all px-2">
                         {thumbnail.name}
                       </p>
                       <p className="text-xs text-muted-foreground">
@@ -559,9 +559,9 @@ export default function UppostPanel() {
                       </p>
                     </div>
                   ) : (
-                    <div className="space-y-3">
-                      <ImageIcon className="w-10 h-10 mx-auto text-muted-foreground" />
-                      <p className="text-sm font-bold text-foreground">
+                    <div className="space-y-2 sm:space-y-3">
+                      <ImageIcon className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-muted-foreground" />
+                      <p className="text-xs sm:text-sm font-bold text-foreground">
                         Click to upload thumbnail
                       </p>
                       <p className="text-xs text-muted-foreground">
