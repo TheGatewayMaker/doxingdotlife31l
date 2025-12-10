@@ -54,7 +54,7 @@ export const handleDeletePost: RequestHandler = async (req, res) => {
       `[${new Date().toISOString()}] ✅ Successfully deleted post ${postId}`,
     );
 
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Post deleted successfully",
     });
@@ -67,6 +67,7 @@ export const handleDeletePost: RequestHandler = async (req, res) => {
     console.error("Full error details:", error);
 
     res.status(500).json({
+      success: false,
       error: "Failed to delete post",
       details:
         process.env.NODE_ENV === "development"
@@ -241,7 +242,7 @@ export const handleUpdatePost: RequestHandler = async (req, res) => {
       createdAt: updatedMetadata.createdAt,
     };
 
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Post updated successfully",
       post,
@@ -249,6 +250,13 @@ export const handleUpdatePost: RequestHandler = async (req, res) => {
   } catch (error) {
     console.error("Error updating post:", error);
     const errorMessage = error instanceof Error ? error.message : String(error);
-    res.status(500).json({ error: `Failed to update post: ${errorMessage}` });
+    res.status(500).json({
+      success: false,
+      error: "Failed to update post",
+      details:
+        process.env.NODE_ENV === "development"
+          ? errorMessage
+          : "An error occurred while updating the post. Please check server logs.",
+    });
   }
 };
