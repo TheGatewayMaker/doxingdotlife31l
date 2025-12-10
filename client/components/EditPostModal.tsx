@@ -7,7 +7,6 @@ interface EditPostModalProps {
   post: Post;
   onClose: () => void;
   onUpdate: (post: Post) => void;
-  getIdToken: () => Promise<string | null>;
 }
 
 const COUNTRIES = [
