@@ -74,12 +74,30 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
   let responseSent = false;
 
   try {
+    // Simple authorization check - just verify user is logged in with authorized email
+    // No token or session validation, just check if req.user exists (set by optionalAuthMiddleware)
+    if (!req.user || !req.user.email) {
+      console.warn(
+        `[${new Date().toISOString()}] Upload rejected - user not logged in`,
+      );
+      if (!res.headersSent) {
+        res.status(401).json({
+          error: "You must be logged in to upload posts.",
+        });
+        responseSent = true;
+      }
+      return;
+    }
+
+    const userEmail = req.user.email;
+
     // Log upload attempt for debugging Netlify issues
     const isNetlify = process.env.NETLIFY === "true";
     const contentLength = req.get("content-length");
     console.log(
       `[${new Date().toISOString()}] Upload request received on ${isNetlify ? "NETLIFY" : "LOCAL"}`,
       {
+        user: userEmail,
         hasFiles: !!req.files,
         filesType: typeof req.files,
         filesKeys: req.files ? Object.keys(req.files) : [],

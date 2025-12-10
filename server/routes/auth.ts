@@ -153,6 +153,7 @@ export const handleLogout: RequestHandler = async (req, res) => {
 /**
  * Auth middleware to protect routes
  * Checks session cookie instead of Authorization header
+ * REJECTS if no valid session found
  */
 export const authMiddleware: (
   req: any,
@@ -213,5 +214,57 @@ export const authMiddleware: (
       error,
     );
     res.status(500).json({ error: "Authentication failed" });
+  }
+};
+
+/**
+ * Optional auth middleware - sets req.user if valid session exists, but doesn't reject
+ * Useful for routes that want to handle auth failures with custom error messages
+ */
+export const optionalAuthMiddleware: (
+  req: any,
+  res: any,
+  next: any,
+) => Promise<void> = async (req, res, next) => {
+  try {
+    const sessionId = req.cookies[SESSION_COOKIE_NAME];
+
+    if (!sessionId) {
+      // No session, just continue - route handler will handle missing auth
+      return next();
+    }
+
+    const session = sessionStore.get(sessionId);
+
+    if (!session) {
+      // Invalid session, just continue
+      return next();
+    }
+
+    // Check if session has expired
+    if (Date.now() - session.createdAt > SESSION_DURATION) {
+      sessionStore.delete(sessionId);
+      res.clearCookie(SESSION_COOKIE_NAME);
+      // Session expired, just continue
+      return next();
+    }
+
+    // Attach valid user info to request
+    req.user = {
+      uid: session.uid,
+      email: session.email,
+    };
+
+    console.log(
+      `[${new Date().toISOString()}] ✅ Valid session found for: ${session.email}`,
+    );
+    next();
+  } catch (error) {
+    console.error(
+      `[${new Date().toISOString()}] Optional auth middleware error:`,
+      error,
+    );
+    // Don't reject on error, just continue
+    next();
   }
 };
