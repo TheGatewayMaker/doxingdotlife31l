@@ -180,11 +180,9 @@ export default function AllPosts() {
                     onClick={() => navigate(`/post/${post.id}`)}
                     className={cn(
                       "group rounded-lg sm:rounded-xl overflow-hidden transition-all duration-300 cursor-pointer animate-scaleUpFadeIn flex flex-col h-full active:scale-95 sm:active:scale-100",
-                      post.nsfw && !post.isTrend
-                        ? "bg-gradient-to-br from-[#2a1a1a] via-[#1a0a0a] to-[#1a0a0a] hover:shadow-[0_0_25px_rgba(239,68,68,0.35)] hover:from-[#3a2a1f] hover:via-[#2a1a0f] hover:to-[#1a0a0a]"
-                        : post.isTrend
-                        ? "bg-gradient-to-br from-[#4a3a1a] via-[#3a2a1a] to-[#2a1a0a] hover:shadow-[0_0_35px_rgba(255,215,0,0.4)] hover:from-[#5a4a2a] hover:via-[#4a3a2a] hover:to-[#3a2a1a]"
-                        : "bg-[#1a1a1a] hover:shadow-[0_0_30px_rgba(0,136,204,0.3)] hover:bg-[#252525]",
+                      post.isTrend
+                        ? "bg-gradient-to-br from-[#4a3a1a] via-[#3a2a1a] to-[#2a1a0a] hover:from-[#5a4a2a] hover:via-[#4a3a2a] hover:to-[#3a2a1a]"
+                        : "bg-[#1a1a1a] hover:bg-[#252525]",
                     )}
                     style={{ animationDelay: `${idx * 0.08}s` }}
                     role="link"
@@ -230,16 +228,13 @@ export default function AllPosts() {
                           {post.title}
                         </h3>
                         {post.nsfw && (
-                          <div className="relative inline-flex items-center flex-shrink-0">
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-500 rounded-md blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
-                            <span className="relative inline-flex items-center bg-gradient-to-br from-red-600 to-red-700 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-black flex-shrink-0 whitespace-nowrap transition-all duration-200 cursor-default shadow-lg">
-                              NSFW
-                            </span>
-                          </div>
+                          <span className="text-red-500 font-black text-sm sm:text-base flex-shrink-0">
+                            NSFW
+                          </span>
                         )}
                       </div>
                       <p className="text-xs sm:text-sm line-clamp-2 mb-3 sm:mb-4 text-[#d0d0d0] font-semibold flex-1 leading-relaxed">
-                        {post.description.replace(/\*\*/g, "")}
+                        {post.description.replace(/\*\*|[*]/g, "")}
                       </p>
                       <div className="flex flex-wrap gap-2 opacity-100 group-hover:opacity-100 transition-opacity">
                         {post.country && (
