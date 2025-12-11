@@ -1,29 +1,275 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Menu, X, LogOut } from "lucide-react";
+import {
+  HomeIcon,
+  UploadIcon,
+  SettingsIcon,
+  SearchAltIcon,
+} from "@/components/Icons";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function Header() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuthContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isSidebarOpen]);
+
+  useEffect(() => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isSidebarOpen) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => document.removeEventListener("keydown", handleEscapeKey);
+  }, [isSidebarOpen]);
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    closeSidebar();
+    navigate("/");
+  };
+
   return (
-    <header className="w-full bg-card border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="w-full bg-[#000000] backdrop-blur-md border-b border-[#666666] shadow-lg animate-slideInDown sticky top-0 z-50 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <Link
           to="/"
-          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          className="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-opacity flex-shrink-0 group"
         >
-          <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
-            <span className="text-accent-foreground font-black text-sm">D</span>
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden shadow-md flex-shrink-0 group-hover:shadow-lg group-hover:shadow-[#0088CC]/30 transition-all">
+            <img
+              src="https://i.ibb.co/PzNWvp7N/doxinglifelogo.png"
+              alt="Doxing Dot Life Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <span className="font-bold text-lg text-foreground">
+          <span className="font-black text-base sm:text-lg text-white hidden xs:inline line-clamp-1 group-hover:text-[#0088CC] transition-colors">
             Doxing Dot Life
+          </span>
+          <span className="font-black text-base sm:text-lg text-white xs:hidden group-hover:text-[#0088CC] transition-colors">
+            DDL
           </span>
         </Link>
 
-        <nav className="flex items-center gap-6">
+        {/* Desktop Navigation */}
+        <nav
+          className="hidden lg:flex items-center gap-6 xl:gap-8 animate-fadeIn"
+          style={{ animationDelay: "0.2s" }}
+        >
           <Link
             to="/"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-2 text-sm font-semibold text-[#979797] hover:text-white transition-all duration-200 hover:scale-110 group"
           >
-            Home
+            <HomeIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-[#0088CC]" />
+            <span className="hidden xl:inline group-hover:text-[#0088CC]">
+              Home
+            </span>
           </Link>
+          <Link
+            to="/all-posts"
+            className="text-sm font-semibold text-[#979797] hover:text-white transition-all duration-200 group"
+          >
+            <span className="group-hover:text-[#0088CC]">Posts</span>
+          </Link>
+          <Link
+            to="/dox-anyone"
+            className="flex items-center gap-2 px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 group"
+          >
+            <SearchAltIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            <span>Dox Now</span>
+          </Link>
+          {isAuthenticated && (
+            <>
+              {location.pathname !== "/uppostpanel" && (
+                <Link
+                  to="/uppostpanel"
+                  className="flex items-center gap-2 px-5 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-purple-600/40 active:scale-95 group"
+                >
+                  <UploadIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span className="hidden xl:inline">Upload</span>
+                </Link>
+              )}
+              {location.pathname !== "/admin-panel" && (
+                <Link
+                  to="/admin-panel"
+                  className="flex items-center gap-2 px-5 py-2 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-amber-600/40 active:scale-95 group"
+                >
+                  <SettingsIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span className="hidden xl:inline">Admin</span>
+                </Link>
+              )}
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 px-5 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-red-600/40 active:scale-95 group"
+              >
+                <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="hidden xl:inline">Logout</span>
+              </button>
+            </>
+          )}
         </nav>
+
+        {/* Mobile Menu Button - Modern Hamburger */}
+        <button
+          className="lg:hidden p-2 rounded-lg transition-all duration-300 relative touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#0088CC] focus:ring-offset-2 focus:ring-offset-[#000000] group hover:bg-[#666666]/40"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          aria-label={
+            isSidebarOpen ? "Close navigation menu" : "Toggle navigation menu"
+          }
+          aria-expanded={isSidebarOpen}
+          aria-controls="mobile-menu"
+        >
+          <div className="relative w-6 h-5 flex items-center justify-center">
+            {/* Hamburger lines with modern animation */}
+            <div
+              className="absolute w-full h-px bg-white transition-all duration-300 ease-in-out"
+              style={{
+                transform: isSidebarOpen
+                  ? "rotate(45deg) translateY(0)"
+                  : "translateY(-8px)",
+              }}
+            />
+            <div
+              className="absolute w-full h-px bg-white transition-all duration-300 ease-in-out"
+              style={{
+                opacity: isSidebarOpen ? 0 : 1,
+              }}
+            />
+            <div
+              className="absolute w-full h-px bg-white transition-all duration-300 ease-in-out"
+              style={{
+                transform: isSidebarOpen
+                  ? "rotate(-45deg) translateY(0)"
+                  : "translateY(8px)",
+              }}
+            />
+          </div>
+        </button>
+
+        {/* Mobile Sidebar Navigation */}
+        {isSidebarOpen && (
+          <>
+            {/* Overlay */}
+            <div
+              className="fixed inset-0 bg-black/60 lg:hidden animate-fadeIn"
+              onClick={closeSidebar}
+              role="presentation"
+              aria-hidden="true"
+              style={{ zIndex: 40 }}
+            />
+
+            {/* Sidebar */}
+            <div
+              id="mobile-menu"
+              className="fixed top-0 left-0 right-0 w-full max-h-screen bg-[#000000] lg:hidden shadow-2xl flex flex-col overflow-hidden"
+              style={{
+                zIndex: 50,
+                animation: "slideInDown 0.3s ease-out forwards",
+              }}
+              role="navigation"
+              aria-label="Mobile navigation"
+            >
+              {/* Header with close button */}
+              <div className="h-16 sm:h-20 border-b border-[#666666] flex items-center justify-between px-4 sm:px-6 flex-shrink-0">
+                <h2 className="text-lg sm:text-xl font-bold text-white">
+                  Navigation
+                </h2>
+                <button
+                  onClick={closeSidebar}
+                  aria-label="Close navigation menu"
+                  className="p-2 rounded-lg hover:bg-[#666666]/40 transition-colors touch-manipulation"
+                >
+                  <X className="w-6 h-6 text-white" />
+                </button>
+              </div>
+
+              {/* Scrollable menu content */}
+              <nav className="flex-1 overflow-y-auto px-2 sm:px-4 py-4 sm:py-6 space-y-2">
+                <Link
+                  to="/"
+                  onClick={closeSidebar}
+                  className="flex items-center gap-3 w-full px-3 sm:px-4 py-3 sm:py-4 text-[#979797] font-semibold hover:bg-[#666666]/40 hover:text-white rounded-lg transition-all duration-200 active:bg-[#666666]/60 text-base sm:text-lg touch-target"
+                >
+                  <HomeIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                  <span>Home</span>
+                </Link>
+                <Link
+                  to="/all-posts"
+                  onClick={closeSidebar}
+                  className="flex items-center gap-3 w-full px-3 sm:px-4 py-3 sm:py-4 text-[#979797] font-semibold hover:bg-[#666666]/40 hover:text-white rounded-lg transition-all duration-200 active:bg-[#666666]/60 text-base sm:text-lg touch-target"
+                >
+                  <span className="text-lg sm:text-2xl">📋</span>
+                  <span>All Posts</span>
+                </Link>
+                <Link
+                  to="/dox-anyone"
+                  onClick={closeSidebar}
+                  className="flex items-center gap-3 w-full px-3 sm:px-4 py-3 sm:py-4 text-white font-semibold hover:bg-[#0077BB] rounded-lg transition-all duration-200 bg-[#0088CC] active:bg-[#0066AA] text-base sm:text-lg touch-target"
+                >
+                  <SearchAltIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                  <span>Dox Now</span>
+                </Link>
+                {isAuthenticated && (
+                  <>
+                    <div className="my-2 sm:my-4 border-t border-[#666666]" />
+                    {location.pathname !== "/uppostpanel" && (
+                      <Link
+                        to="/uppostpanel"
+                        onClick={closeSidebar}
+                        className="flex items-center gap-3 w-full px-3 sm:px-4 py-3 sm:py-4 bg-purple-600 text-white font-semibold hover:bg-purple-700 rounded-lg transition-all duration-200 active:bg-purple-800 text-base sm:text-lg touch-target"
+                      >
+                        <UploadIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                        <span>Upload Post</span>
+                      </Link>
+                    )}
+                    {location.pathname !== "/admin-panel" && (
+                      <Link
+                        to="/admin-panel"
+                        onClick={closeSidebar}
+                        className="flex items-center gap-3 w-full px-3 sm:px-4 py-3 sm:py-4 bg-amber-600 text-white font-semibold hover:bg-amber-700 rounded-lg transition-all duration-200 active:bg-amber-800 text-base sm:text-lg touch-target"
+                      >
+                        <SettingsIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                        <span>Admin Panel</span>
+                      </Link>
+                    )}
+                  </>
+                )}
+              </nav>
+
+              {/* Footer section with logout button */}
+              {isAuthenticated && (
+                <div className="p-3 sm:p-4 border-t border-[#666666] bg-[#0a0a0a] flex-shrink-0">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center justify-center gap-2 px-3 sm:px-4 py-3 sm:py-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-red-600/40 active:bg-red-800 text-base sm:text-lg touch-target"
+                  >
+                    <LogOut className="w-5 h-5" />
+                    <span>Logout</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </header>
   );
