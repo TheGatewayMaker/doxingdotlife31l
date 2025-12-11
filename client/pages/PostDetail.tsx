@@ -151,8 +151,8 @@ export default function PostDetail() {
           <div className="max-w-5xl mx-auto">
             {/* NSFW Warning Banner */}
             {post.nsfw && (
-              <div className="mb-8 bg-[#1a1a1a] border border-red-600/40 rounded-xl p-4 sm:p-5 flex items-start gap-3 sm:gap-4 animate-fadeIn">
-                <NSFWIcon className="w-7 h-7 text-red-500 flex-shrink-0" />
+              <div className="mb-8 bg-[#1a1a1a] border border-[#FF0000]/40 rounded-xl p-4 sm:p-5 flex items-start gap-3 sm:gap-4 animate-fadeIn">
+                <NSFWIcon className="w-7 h-7 text-[#FF0000] flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-white mb-1">
                     NSFW Content Warning
@@ -200,7 +200,7 @@ export default function PostDetail() {
               <div className="mb-4">
                 <div className="flex flex-wrap items-center gap-2 mb-4">
                   {post.nsfw && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-600/20 text-red-400 text-xs font-bold rounded-full border border-red-600/40">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF0000]/20 text-[#FF0000] text-xs font-bold rounded-full border border-[#FF0000]/40">
                       <NSFWIcon className="w-4 h-4" />
                       NSFW
                     </span>
