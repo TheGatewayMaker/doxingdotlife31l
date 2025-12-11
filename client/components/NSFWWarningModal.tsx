@@ -14,7 +14,9 @@ export default function NSFWWarningModal({
       <div className="bg-[#1a1a1a] border border-[#333333] rounded-lg w-full max-w-sm p-8 animate-fadeIn">
         {/* Header */}
         <div className="flex items-start justify-between mb-8">
-          <h2 className="text-2xl font-bold text-white">Age Verification Required</h2>
+          <h2 className="text-2xl font-bold text-white">
+            Age Verification Required
+          </h2>
           <button
             onClick={onGoBack}
             className="text-[#979797] hover:text-white transition-colors flex-shrink-0"
@@ -26,16 +28,21 @@ export default function NSFWWarningModal({
         {/* Content */}
         <div className="mb-8 space-y-4">
           <p className="text-[#d0d0d0] text-base leading-relaxed">
-            This content is marked as <strong>NSFW</strong> (Not Safe For Work) and contains adult material.
+            This content is marked as <strong>NSFW</strong> (Not Safe For Work)
+            and contains adult material.
           </p>
           <p className="text-[#b0b0b0] text-sm leading-relaxed">
-            By proceeding, you confirm that you are <strong>18 years of age or older</strong> and wish to view this content.
+            By proceeding, you confirm that you are{" "}
+            <strong>18 years of age or older</strong> and wish to view this
+            content.
           </p>
         </div>
 
         {/* Question */}
         <div className="bg-[#252525] border border-[#333333] rounded-md p-4 mb-8">
-          <p className="text-white font-semibold">Are you 18 years of age or older?</p>
+          <p className="text-white font-semibold">
+            Are you 18 years of age or older?
+          </p>
         </div>
 
         {/* Action Buttons */}
